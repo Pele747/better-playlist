@@ -1,4 +1,4 @@
-/* https://safe-wave-93302.herokuapp.com/ */
+/* https://safe-wave-93302.herokuapp.com */
 
 import React, { Component } from 'react';
 
@@ -109,6 +109,11 @@ class App extends Component {
   }
 
   render() {
+    
+    let playlistsToRender = this.state.serverData.user ? this.state.serverData.user.playlists.filter((playlist) => {
+      return playlist.name.toLowerCase().includes(this.state.filterString.toLowerCase());
+    }) : [];
+
     return (
       <div className='App'>
         {this.state.serverData.user ? 
@@ -118,19 +123,13 @@ class App extends Component {
             this.state.serverData.user.name}'s Playlists  
            </h1>
           
-            <PlaylistCounter playlists= {this.state.serverData.user && 
-              this.state.serverData.user.playlists} />
-            <HoursCounter playlists= {this.state.serverData.user && 
-              this.state.serverData.user.playlists} />
+            <PlaylistCounter playlists= {playlistsToRender} />
+            <HoursCounter playlists= {playlistsToRender} />
             <Filter onTextChange={(text) => this.setState({ filterString: text })}/>
-            {
-              this.state.serverData.user.playlists.filter((playlist) => {
-                  return playlist.name.toLowerCase().includes(this.state.filterString.toLowerCase());
-              })
-              .map((playlist) => {
-                return <Playlist playlist={playlist}/>;
-              })
-             
+            {          
+                playlistsToRender.map((playlist) => {
+                  return <Playlist playlist={playlist}/>;
+                })        
             }
            </div> : <h1 style={{...defaultStyle}}>Loading...</h1>
         }
