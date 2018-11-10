@@ -22,11 +22,11 @@ let fakeServerData = {
       },
       {
         name: 'Another playlist - the best!',
-        songs: [{name: 'Beat it', duration: 1345}, {name: 'Canelloni Makaroni', duration: 1236 }, { name: 'Rosa helikopter', duration: 70000 }]
+        songs: [{name: 'Beat it', duration: 1345}, {name: 'Hallelujah', duration: 1236 }, { name: 'Rosa helikopter', duration: 70000 }]
       },
       {
         name: 'Playlist - yeah!',
-        songs: [{name: 'Beat it', duration: 1345}, {name: 'Canelloni Makaroni', duration: 1236 }, { name: 'Rosa helikopter', duration: 70000 }]
+        songs: [{name: 'Beat it', duration: 1345}, {name: 'Canelloni Makaroni', duration: 1236 }, { name: 'Hej hej Monika', duration: 70000 }]
       },
     ]
   }
@@ -75,21 +75,17 @@ class Filter extends Component {
 
 class Playlist extends Component {
   render() {
+    let playlist = this.props.playlist;
     return (
       <div style={{...defaultStyle, width: '25%', display: 'inline-block'}}>
         <img />
-        <h3>Playlist Name</h3>
+        <h3>{playlist.name}</h3>
         <ul>
-          <li>
-            Song 1
-          </li>
-          <li>
-            Song 2
-          </li>
-          <li>
-            Song 3
-          </li>
-          </ul>
+          { playlist.songs.map((song) => {
+              return <li>{ song.name } </li>;
+            }) 
+          }
+        </ul>
       </div>
     );
   }
@@ -126,10 +122,12 @@ class App extends Component {
             <HoursCounter playlists= {this.state.serverData.user && 
               this.state.serverData.user.playlists} />
             <Filter />
-            <Playlist />
-            <Playlist />
-            <Playlist />
-            <Playlist />
+            {
+              this.state.serverData.user.playlists.map((playlist) => {
+                return <Playlist playlist={playlist}/>;
+              })
+             
+            }
            </div> : <h1 style={{...defaultStyle}}>Loading...</h1>
         }
       </div>
