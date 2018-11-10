@@ -47,7 +47,6 @@ class HoursCounter extends Component {
     let allSongs = this.props.playlists.reduce((songs, eachPlaylist) => {
       return songs.concat(eachPlaylist.songs);
     }, []);
-    console.log(allSongs);
     let totalDuration = allSongs.reduce((sum, eachSong) => {
         return sum + eachSong.duration;
     }, 0);
@@ -66,7 +65,7 @@ class Filter extends Component {
     return (
       <div style={defaultStyle}>
         <img />
-        <input type='text' />
+        <input type='text' onChange={(e) => this.props.onTextChange(e.target.value.trim())}/>
         Filter
       </div>  
     );
@@ -95,7 +94,10 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {serverData: {}}
+    this.state = {
+      serverData: {},
+      filterString: ''
+    };
   }
 
   componentDidMount() {
@@ -104,7 +106,6 @@ class App extends Component {
         serverData: fakeServerData
       });
     }, 1000);
-    
   }
 
   render() {
@@ -121,9 +122,12 @@ class App extends Component {
               this.state.serverData.user.playlists} />
             <HoursCounter playlists= {this.state.serverData.user && 
               this.state.serverData.user.playlists} />
-            <Filter />
+            <Filter onTextChange={(text) => this.setState({ filterString: text })}/>
             {
-              this.state.serverData.user.playlists.map((playlist) => {
+              this.state.serverData.user.playlists.filter((playlist) => {
+                  return playlist.name.toLowerCase().includes(this.state.filterString.toLowerCase());
+              })
+              .map((playlist) => {
                 return <Playlist playlist={playlist}/>;
               })
              
