@@ -97,6 +97,8 @@ class App extends Component {
     const parsed = queryString.parse(window.location.search);
     const accessToken = parsed.access_token;
 
+    if(!accessToken) return;
+
     // API FOR USER NAME
     fetch('https://api.spotify.com/v1/me', {
       headers: {
@@ -187,7 +189,7 @@ class App extends Component {
 
     return (
       <div className='App'>
-        {this.state.user && this.state.user.name ? 
+        {this.state.user ? 
           <div>
            <h1 style={{...defaultStyle, fontSize: '54px'}}>
            {
