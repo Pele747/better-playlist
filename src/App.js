@@ -204,7 +204,7 @@ class App extends Component {
                 })        
             }
            </div> : <button onClick={() => {
-             if(window.location.includes('localhot')) {
+             if(window.location.href.includes('localhot')) {
                window.location = 'localhost:8888/login';
              }
               else {
