@@ -167,8 +167,9 @@ class App extends Component {
           return {
             name: item.name, 
             imageUrl: item.image.url,
-            songs: []};
-          })
+            songs: []
+          };
+        })
       });
     })
     .catch((err) => {
@@ -204,7 +205,7 @@ class App extends Component {
                 })        
             }
            </div> : <button onClick={() => {
-             if(window.location.href.includes('localhot')) {
+             if(window.location.href.includes('localhost')) {
                window.location = 'localhost:8888/login';
              }
               else {
