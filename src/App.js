@@ -203,7 +203,14 @@ class App extends Component {
                   return <Playlist playlist={playlist}/>;
                 })        
             }
-           </div> : <button onClick={() => window.location='http://localhost:8888/login'} style={{ padding: '20px', fontSize: '50px', marginTop: '20px', cursor: 'pointer' }}>Sign in with Spotify</button>
+           </div> : <button onClick={() => {
+             if(window.location.includes('localhot')) {
+               window.location = 'localhost:8888/login';
+             }
+              else {
+                window.location = 'https://safe-wave-93302.herokuapp.com/';
+             }
+           }} style={{ padding: '20px', fontSize: '50px', marginTop: '20px', cursor: 'pointer' }}>Sign in with Spotify</button>
         }
       </div>
     );
