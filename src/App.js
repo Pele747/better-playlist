@@ -208,7 +208,7 @@ class App extends Component {
                window.location = 'localhost:8888/login';
              }
               else {
-                window.location = 'https://safe-wave-93302.herokuapp.com/';
+                window.location = 'https://guarded-ridge-69037.herokuapp.com/login';
              }
            }} style={{ padding: '20px', fontSize: '50px', marginTop: '20px', cursor: 'pointer' }}>Sign in with Spotify</button>
         }
